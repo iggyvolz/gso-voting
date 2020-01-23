@@ -1,0 +1,4 @@
+ShibRedirectToSSL 443
+AuthType shibboleth
+ShibRequireSession on
+require valid-user
