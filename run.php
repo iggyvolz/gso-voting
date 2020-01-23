@@ -1,7 +1,7 @@
 <?php
 header("Content-Type: text/plain");
 // Obtain current voter from Shibboleth
-$voter="rjv8806";
+$voter=$_SERVER["uid"];
 // Only allow one voter at a time
 flock($lock=fopen(__DIR__."/data/lock", "r+"), LOCK_EX);
 // If the backup files exist, we have experienced a previous crash and we need to manually recover
