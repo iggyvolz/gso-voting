@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+    <head>
+        <title>GSO Voting</title>
+        <script src="Sortable.min.js"></script>
+        <script>
+        window.addEventListener("load", ()=>{
+            const list=document.querySelector(".sortable");
+            const updateQuery=()=>{
+                document.querySelector("textarea").value=JSON.stringify(Array.from(document.querySelector(".sortable").children).map(x=>x.innerText));
+            };
+            window.s=new Sortable(list);
+            updateQuery();
+            list.addEventListener("change", updateQuery);
+        });
+        </script>
+        <style>
+            textarea {
+                width: 100%;
+                height: 25%;
+            }
+        </style>
+    </head>
+    <body>
+        <form action="run.php" method="post">
+            <textarea name="content" readonly></textarea>
+            <input type="submit">
+        </form>
+        <ol class="list-group sortable">
+            <li class="list-group-item">Person 1</li>
+            <li class="list-group-item">Person 2</li>
+            <li class="list-group-item">Person 3</li>
+            <li class="list-group-item">Person 4</li>
+            <li class="list-group-item">Person 5</li>
+        </ol>
+        <p>
+            Drag the candidates above until they are in an order you would like.  Then press the Submit button above to submit your vote.  Your vote cannot be changed once submitted.
+        </p>
+    </body>
+</html>
