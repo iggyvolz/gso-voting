@@ -22,6 +22,21 @@
         </style>
     </head>
     <body>
+        <?php
+            // Check if current user is on the list of voters
+            // Obtain current voter from Shibboleth
+            $voter=$_SERVER["uid"];
+            flock($lock=fopen(__DIR__."/data/lock", "r+"), LOCK_SH);
+            $voters=array_map("trim", file(__DIR__."/data/voters"));
+            // Find the current voter in the list of voters
+            $voter_key=array_search($voter, $voters);
+            if($voter_key === false) {
+                http_response_code(403);
+                echo "<p>The user '".htmlspecialchars($voter)."' is not on the list of valid voters.</p></body></html>";
+                die();
+            }
+        ?>
+        <p>Hello <?= htmlspecialchars($voter) ?>!</p>
         <form action="run.php" method="post">
             <textarea name="content" readonly></textarea>
             <input type="submit">
